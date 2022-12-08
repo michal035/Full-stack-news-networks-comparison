@@ -15,7 +15,9 @@ class CrawlingSpider(CrawlSpider):
 
     def parse_item(self, response):
         yield {
-            "tit"
+            "title" : response.css(".product_main h1::text").get(),
+            "price" : response.css(".price_color::text").get(),
+            "availabity" : response.css(".availability::text")[1].get().replace("\n","").replace(" ","")
 
 
         }

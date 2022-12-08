@@ -87,7 +87,10 @@ class CrawlingDownloaderMiddleware:
         # - return a Response object
         # - return a Request object
         # - or raise IgnoreRequest
-        return response
+        
+        
+        """request.meta['proxy'] = "127.0.0.1"
+        return response"""
 
     def process_exception(self, request, exception, spider):
         # Called when a download handler or a process_request()
