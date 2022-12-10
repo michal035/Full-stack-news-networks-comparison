@@ -89,7 +89,7 @@ class CrawlingDownloaderMiddleware:
         # - or raise IgnoreRequest
         
         
-        """request.meta['proxy'] = "127.0.0.1"
+        """request.meta['proxy'] = "31.186.239.245"
         return response"""
 
     def process_exception(self, request, exception, spider):
