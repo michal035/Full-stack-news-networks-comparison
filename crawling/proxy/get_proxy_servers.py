@@ -4,12 +4,17 @@ from queue import Queue
 import pandas as pd
 import signal
 import sys
+import numpy as np
 
 
 def interrupt_handler(signum, frame):
+    
     print("\n")
     print(df)
     print("\n")
+    
+    np.savetxt(r"crawling/proxy/working_proxies.txt", df.values, fmt='%s')
+    df.to_csv(r'crawling/proxy/working_proxies.csv', header=None, index=None, sep=' ', mode='w')
     sys.exit()
 
 
@@ -45,17 +50,20 @@ def t():
         p = q.get()
         
         try:
-            res = requests.get("http://ipinfo.io/json", proxies={"http": p, "https": p})
+            res = requests.get("http://ipinfo.io/json", proxies={"http": p, "https": p}, timeout=3)
         except:
             continue
+            
         if res.status_code == 200:
-            print(p)
-            time = res.elapsed
-            print(time)
-            df2 = pd.DataFrame ({"ipaddress_with_port": [p],'time': [time], 'ipaddress': [(p.split(":")[0])] })
+            time = str(res.elapsed)[-9:]
+
+            ipaddress = (p.split(":")[0])
+            
+            print(f"ip: {p}  time: {time}")
+            df2 = pd.DataFrame ({"ipaddress_with_port": [p],'time': [time], 'ipaddress': [ipaddress] })
             df = pd.concat([df,df2], ignore_index=True)
-
-
-for _ in range(5):
+          
+                
+for _ in range(6):
     threading.Thread(target=t).start()
 
