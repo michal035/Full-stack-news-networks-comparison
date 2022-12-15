@@ -13,8 +13,9 @@ def interrupt_handler(signum, frame):
     print(df)
     print("\n")
     
-    np.savetxt(r"crawling/proxy/working_proxies.txt", df.values, fmt='%s')
-    df.to_csv(r'crawling/proxy/working_proxies.csv', header=None, index=None, sep=' ', mode='w')
+    #I'm not sure why i need to put whole path here, otherwise it won't work
+    np.savetxt(r"/home/michal/Documents/Python/scraping/test/crawling/proxy/working_proxies.txt", df.values, fmt='%s')
+    df.to_csv(r'/home/michal/Documents/Python/scraping/test/crawling/proxy/working_proxies.csv', header=None, index=None, sep=' ', mode='w')
     sys.exit()
 
 
@@ -28,9 +29,13 @@ q = Queue()
 
 with open("/home/michal/Documents/Python/scraping/test/crawling/proxy/raw_list.txt","r") as f:
     p = f.read().split("\n")
-    
-    for i in p:
-        q.put(i)
+    for i in p: 
+        try: 
+            l = ["80","8080","433","8443",]
+            if i.split(":")[1] in l:
+                q.put(i)
+        except:
+            pass
 
 
 df = pd.DataFrame({

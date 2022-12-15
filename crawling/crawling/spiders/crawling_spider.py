@@ -46,8 +46,8 @@ class CrawlingSpider(CrawlSpider):
     l = len(df.index)
     random_proxy = df.iloc[random.randint(0, l-1)][0]
 
-    CUSTOM_PROXY = f"http://{random_proxy}"
-
+    #CUSTOM_PROXY = f"http://{random_proxy}"
+    CUSTOM_PROXY = "https://195.154.255.194:8000"
 
     def start_requests(self):
         for url in self.start_urls:
