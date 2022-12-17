@@ -1,7 +1,8 @@
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
-from scrapy import Request
+from scrapy import Request, signals
 import scrapy
+from pydispatch import dispatcher
 
 import pandas as pd
 import random
@@ -12,9 +13,23 @@ import random
 
 base = "https://tvn24.pl/najnowsze/{}"
 class CrawlingSpider(CrawlSpider):
+    
+
+    def __init__(self):
+        dispatcher.connect(self.spider_closed, signals.spider_closed)
+
+
+    def spider_closed(self, spider):
+        df3 = df3.sort_values(by=['link'])
+        print(df3)
+        df3.to_csv(r'/home/michal/Documents/Python/scraping/test/crawling/data/headlines.csv', index=None, sep=';', mode='w')
+    
+
     name = "stvn"
     allowed_domains = ["tvn24.pl"]
-    start_urls = [base.format(i+1) for i in range(8) ]
+
+    number_of_pages = 8
+    start_urls = [base.format(i+1) for i in range(number_of_pages) ]
     
     rules = (
         Rule(LinkExtractor(allow="najnowsze", deny="tvnwarszawa"), callback="parse_item"),
@@ -34,14 +49,13 @@ class CrawlingSpider(CrawlSpider):
     
     def start_requests(self):
         global df3
-
         df3 = pd.DataFrame({ 
-        'article headline' : [],
-        'hour/date' : []
+        'article-headline' : [],
+        'hour/date' : [],
+        'link': []
 
 
         })
-
 
         for url in self.start_urls:
             re =  Request(url=url, callback=self.parse_item)
@@ -60,11 +74,11 @@ class CrawlingSpider(CrawlSpider):
             'X-Requested-With': 'XMLHttpsRequest'
             }
             # Send the request
-            scrapy.http.Request(url, method='GET' , headers = headers,  dont_filter=False)
-
+            scrapy.http.Request(url, method='GET' , headers = headers,  dont_filter=False)   
+            
             yield re
         
-        df3.to_csv(r'/home/michal/Documents/Python/scraping/test/crawling/data/headlines.csv', header=None, index=None, sep=' ', mode='w')
+        
 
 
     def parse_item(self, response):
@@ -77,10 +91,12 @@ class CrawlingSpider(CrawlSpider):
 
         for i in range(len(headnline)):
             df2 = pd.DataFrame({ 
-            'article headline' : [headnline[i]],
-            'hour/date' : ['not working currently']
-            })
+            'article-headline' : [headnline[i]],
+            'hour/date' : ["n"],
+            'link' : [int(response.request.url.split("/")[len(response.request.url.split("/"))-1])]
+             })
             df3 = pd.concat([df3,df2], ignore_index=True)
+            
 
 
         yield {
