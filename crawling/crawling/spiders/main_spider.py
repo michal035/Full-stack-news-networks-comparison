@@ -21,8 +21,7 @@ class CrawlingSpider(CrawlSpider):
 
     def spider_closed(self, spider):
         df3 = df3.sort_values(by=['link'])
-        print(df3)
-        df3.to_csv(r'/home/michal/Documents/Python/scraping/test/crawling/data/headlines.csv', index=None, sep=';', mode='w')
+        df3.to_csv(r'/home/michal/Documents/Python/scraping/test/crawling/data/headlines3.csv', index=None, sep=';', mode='w')
     
 
     name = "stvn"
@@ -57,6 +56,8 @@ class CrawlingSpider(CrawlSpider):
 
         })
 
+        df3.to_csv(r'/home/michal/Documents/Python/scraping/test/crawling/data/headlines3.csv', index=None, sep=';', mode='w')
+
         for url in self.start_urls:
             re =  Request(url=url, callback=self.parse_item)
             re.meta["proxy"] = self.CUSTOM_PROXY
@@ -89,13 +90,14 @@ class CrawlingSpider(CrawlSpider):
         
 
 
-        for i in range(len(headnline)):
+        for i in range(len(hour)):
             df2 = pd.DataFrame({ 
             'article-headline' : [headnline[i]],
-            'hour/date' : ["n"],
+            'hour/date' : [[hour[i]]],
             'link' : [int(response.request.url.split("/")[len(response.request.url.split("/"))-1])]
              })
-            df3 = pd.concat([df3,df2], ignore_index=True)
+            #df3 = pd.concat([df3,df2], ignore_index=True)
+            df2.to_csv(r'/home/michal/Documents/Python/scraping/test/crawling/data/headlines3.csv', index=None,header=None, sep=';', mode='a')
             
 
 
