@@ -3,6 +3,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy import Request, signals
 import scrapy
 from pydispatch import dispatcher
+import re as a
 
 import pandas as pd
 import random
@@ -11,24 +12,24 @@ import random
 
 
 
-base = "https://tvn24.pl/najnowsze/{}"
+
 class CrawlingSpider(CrawlSpider):
     
-
+    
     def __init__(self):
         dispatcher.connect(self.spider_closed, signals.spider_closed)
-
+        
 
     def spider_closed(self, spider):
         df3 = df3.sort_values(by=['link'])
         df3.to_csv(r'/home/michal/Documents/Python/scraping/test/crawling/data/headlines3.csv', index=None, sep=';', mode='w')
     
-
+    
     name = "stvn"
     allowed_domains = ["tvn24.pl"]
 
     number_of_pages = 8
-    start_urls = [base.format(i+1) for i in range(number_of_pages) ]
+    start_urls = ["https://tvn24.pl/najnowsze/{}".format(i+1) for i in range(number_of_pages) ]
     
     rules = (
         Rule(LinkExtractor(allow="najnowsze", deny="tvnwarszawa"), callback="parse_item"),
@@ -108,3 +109,63 @@ class CrawlingSpider(CrawlSpider):
         }
 
 
+
+
+
+class CrawlingSpider2(CrawlSpider):
+    
+    
+    name = "stvp"
+    allowed_domains = "tvp.info"
+
+
+    df = pd.read_csv('/home/michal/Documents/Python/scraping/test/crawling/proxy/working_proxies.csv', sep=" ") 
+
+    l = len(df.index)
+    random_proxy = df.iloc[random.randint(0, l-1)][0]
+    #CUSTOM_PROXY = f"http://{random_proxy}"
+    CUSTOM_PROXY = "http://134.238.252.143:8080"
+
+
+    def start_requests(self):
+        url="https://www.tvp.info/"
+        re =  Request(url, callback=self.parse_item)
+        re.meta["proxy"] = self.CUSTOM_PROXY
+
+
+        # Set the headers here. 
+        headers =  {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8',
+        'Connection': 'keep-alive',
+        'Host': 'www.eventscribe.com', #need to test if removing this would do anything
+        'Referer': url, 
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36',
+        'X-Requested-With': 'XMLHttpsRequest'
+        }
+        # Send the request
+        scrapy.http.Request(url, method='GET' , headers = headers,  dont_filter=False)   
+        
+        yield re
+
+
+    def parse_item(self, response):
+        
+        
+        headlines = response.css(".news__title::text").getall()
+        hours = response.css(".news__time::text").getall()
+
+
+        for i in range(len(headlines)):
+            headlines[i] = headlines[i].replace("\n","")
+            headlines[i] = " ".join(headlines[i].split())
+
+            hours[i] = " ".join(hours[i].split())
+
+
+        yield{
+
+            "HEADLINES" : headlines,
+            "TIME" : hours
+        }
