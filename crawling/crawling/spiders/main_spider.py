@@ -8,7 +8,9 @@ import re as a
 import pandas as pd
 import random
 
-#In future it might be needed to outsource getting random proxy to separate file
+#In future it might be needed to outsource getting random proxy to separate file ^
+
+# maybe link for the article should be extracted as well
 
 
 
@@ -133,7 +135,15 @@ class CrawlingSpider2(CrawlSpider):
         re.meta["proxy"] = self.CUSTOM_PROXY
 
 
-        # Set the headers here. 
+
+        df5 = pd.DataFrame({ 
+        'article-headline' : [],
+        'hour/date' : []
+        })
+
+        df5.to_csv(r'/home/michal/Documents/Python/scraping/test/crawling/data/headlines5.csv', index=None, sep=';', mode='w')
+
+
         headers =  {
         'Accept': '*/*',
         'Accept-Encoding': 'gzip, deflate, br',
@@ -144,7 +154,7 @@ class CrawlingSpider2(CrawlSpider):
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36',
         'X-Requested-With': 'XMLHttpsRequest'
         }
-        # Send the request
+
         scrapy.http.Request(url, method='GET' , headers = headers,  dont_filter=False)   
         
         yield re
@@ -162,7 +172,17 @@ class CrawlingSpider2(CrawlSpider):
             headlines[i] = " ".join(headlines[i].split())
 
             hours[i] = " ".join(hours[i].split())
+            hours[i] = hours[i].replace("\t","")
 
+
+            df5 = pd.DataFrame({
+            'article-headline' : [headlines[i]],
+            'hour/date' : [hours[i]]
+                
+            })
+
+
+            df5.to_csv(r'/home/michal/Documents/Python/scraping/test/crawling/data/headlines5.csv', index=None,header=None, sep=';', mode='a')
 
         yield{
 
