@@ -2,3 +2,5 @@
 /test/
 *.csv
 *.txt
+*sqlite3
+/website/thesite/thesite

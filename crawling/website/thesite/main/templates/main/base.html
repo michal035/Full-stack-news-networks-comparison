@@ -1,0 +1,76 @@
+<html>
+<head>
+    
+    <style type="text/css">
+        
+        .sidenav{
+            height: 100%;
+            width: 160px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            color: #818181;
+            font-size: 25px;
+            display: block;
+
+        }
+        
+        .sidenav a:hover{
+            color:#f1f1f1;
+        }
+
+        .main{
+            margin-left: 160px;
+            padding: 0px 10px;
+        }
+
+        #btns{
+            margin-left: 20px;
+            
+
+        }
+
+    
+    </style>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>{%block title%} News outlets comparison {%endblock%} </title>
+</head>
+<body>
+
+    <div class="sidenav">   
+        <a href="">Home</a>
+        <a href="">View</a>
+    </div>
+
+
+    <div>
+
+    </div>
+
+
+    <div id="content", class="main">   
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <hr class="mt-0 mb-4">
+                {%block content%}
+                {%endblock%}
+            </div>
+        </div>
+    </div>
+
+    
+</body>   
+</html>
