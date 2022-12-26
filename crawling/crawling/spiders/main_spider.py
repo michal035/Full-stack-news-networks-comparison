@@ -113,6 +113,78 @@ class CrawlingSpider(CrawlSpider):
 
 
 
+#alternative news from the first site
+class CrawlingSider_follow_up(CrawlSpider):
+      
+    name = "stvn-e"
+    allowed_domains = ["tvn24.pl"]
+   
+    df = pd.read_csv('/home/michal/Documents/Python/scraping/test/crawling/proxy/working_proxies.csv', sep=" ") 
+
+    l = len(df.index)
+    random_proxy = df.iloc[random.randint(0, l-1)][0]
+    #CUSTOM_PROXY = f"http://{random_proxy}"
+    CUSTOM_PROXY = "http://134.238.252.143:8080"
+
+    print(f"THE IP IS {CUSTOM_PROXY}")
+
+
+
+    def start_requests(self):
+        
+        
+        global df3
+        df3 = pd.DataFrame({ 
+        'article-headline' : []
+
+        })
+
+        df3.to_csv(r'/home/michal/Documents/Python/scraping/test/crawling/data/headlines2.csv', index=None, sep=';', mode='w')
+        url = "https://tvn24.pl/"
+
+
+        re =  Request(url=url, callback=self.parse_item)
+        re.meta["proxy"] = self.CUSTOM_PROXY
+
+
+        # Set the headers here. 
+        headers =  {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8',
+        'Connection': 'keep-alive',
+        'Host': 'www.eventscribe.com', #need to test if removing this would do anything
+        'Referer': url, 
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36',
+        'X-Requested-With': 'XMLHttpsRequest'
+        }
+        # Send the request
+        scrapy.http.Request(url, method='GET' , headers = headers,  dont_filter=False)   
+        
+        yield re
+    
+        
+
+    def parse_item(self, response):
+        
+        headnlines = response.css("h2::text").getall()
+        
+
+        for i in range(len(headnlines)):
+            df2 = pd.DataFrame({
+                "headline" : [headnlines[i]]
+            })
+            df2.to_csv(r'/home/michal/Documents/Python/scraping/test/crawling/data/headlines2.csv', index=None,header=None, sep=';', mode='a')
+            
+
+        yield {
+            "HEADLINE" : headnlines,      
+        }
+
+
+
+
+
 
 class CrawlingSpider2(CrawlSpider):
     

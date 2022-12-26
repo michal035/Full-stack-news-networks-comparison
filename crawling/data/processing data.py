@@ -4,10 +4,21 @@ import pandas as pd
 
 
 def tvn():
+    
     df = pd.read_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines3.csv", sep=";")
-
     df.sort_values(['link','hour/date',], inplace=True, ascending = [False, True])
+    
     df.to_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines4.csv", sep=";", mode="w")
+
+
+    """df2 = pd.read_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines2.csv", sep=";")
+    #print(df2.loc[df2["article-headline"].str.contains("TVN24 GO")])
+    df['is_on_the_main_page'] = df['article-headline'].apply(lambda x: "yes" if x in df2['article-headline'] else "no")
+    print(df.to_string())
+    """
+
+
+
 
 
 def tvp():
@@ -31,4 +42,3 @@ def tvp():
         
     df2.to_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines6.csv", sep=";", mode="w")
 
-tvp()
