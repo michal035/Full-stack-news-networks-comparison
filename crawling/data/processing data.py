@@ -11,11 +11,20 @@ def tvn():
     df.to_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines4.csv", sep=";", mode="w")
 
 
-    """df2 = pd.read_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines2.csv", sep=";")
+    df2 = pd.read_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines2.csv", sep=";")
     #print(df2.loc[df2["article-headline"].str.contains("TVN24 GO")])
-    df['is_on_the_main_page'] = df['article-headline'].apply(lambda x: "yes" if x in df2['article-headline'] else "no")
-    print(df.to_string())
-    """
+    
+
+    c = len(df2)
+
+    df4 = pd.DataFrame = (df2.loc[df2["article-headline"].str.contains("TVN24 GO")])
+    t = list(df4.index)
+
+    df4 = df2.iloc[:t[0]]
+
+
+    df4.to_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines1.csv", sep=";", mode="w")
+            
 
 
 
