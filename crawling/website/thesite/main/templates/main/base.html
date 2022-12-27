@@ -36,8 +36,12 @@
         #btns{
             margin-left: 20px;
             
-
         }
+
+        #lng{
+    display: flex;
+    justify-content: right;
+}
 
     
     </style>
@@ -45,6 +49,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 
     <title>{%block title%} News outlets comparison {%endblock%} </title>
 </head>
@@ -56,21 +61,41 @@
     </div>
 
 
-    <div>
 
+
+    
+
+    <div id="lng">
+        <form method="post" action="#">
+            {% csrf_token %}
+            <button class="btn btn-danger" value="Eng" name="btn1" type="submit">English</button>
+            <button class="btn btn-light" value="Pol" name="btn2" type="submit">Polish</button>
+        </form>
     </div>
+    
+    <div id="thebigone">
+        
+        <div id="aboutme", class="main">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <hr class="mt-0 mb-4">
+                    {%block aboutme%}
+                    {%endblock%}
+                </div>
+            </div>
+        </div>
 
 
-    <div id="content", class="main">   
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <hr class="mt-0 mb-4">
-                {%block content%}
-                {%endblock%}
+        <div id="content", class="main">   
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <hr class="mt-0 mb-4">
+                    {%block content%}
+                    {%endblock%}
+                </div>
             </div>
         </div>
     </div>
-
     
 </body>   
 </html>

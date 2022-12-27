@@ -1,7 +1,22 @@
 {% extends 'main/base.html' %}
 
-{%block content%}
+{%block aboutme%}
 <h1>Home page</h1>
 <p>about me ... </p>
+{%endblock%}
+
+{%block content%}
+
+{% if lng == "Eng" %}
+    <h1>Headlines from the current day</h1>
+    <p>some text </p>
+{% else %}
+    <h1>nagłówki z dnia dzisiejszego</h1>
+    <p>jakis tekst </p>
+{% endif %}
+
+
+
+
 
 {%endblock%}
