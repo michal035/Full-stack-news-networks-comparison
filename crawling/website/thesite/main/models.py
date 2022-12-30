@@ -1,3 +1,9 @@
 from django.db import models
 
-# Create your models here.
+
+class um(models.Model):
+    headline = models.CharField(max_length=255)
+    adate = models.DateField()
+
+    def __str__(self):
+        return self.headline

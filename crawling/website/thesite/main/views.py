@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import JsonResponse, response
 from django.http import HttpResponse, HttpResponseRedirect
+from .models import um
+
 
 def index(response):
-    #return  HttpResponse("<h1>Hello </h1>")
 
     print(response.method)
     if response.method == 'POST':
@@ -19,3 +20,14 @@ def index(response):
 
 
     return render(response, "main/index.html", {"lng":lng})
+
+
+def db_test(resposne):
+    """obj = um.objects.all()
+    print(obj)
+    context = {'obj':obj}
+    return render(resposne, "main/dbtest.html", {"c":context})"""
+    p = um.objects.all()
+    context = {'p': p,}
+    return render(resposne, "main/dbtest.html", context)
+
