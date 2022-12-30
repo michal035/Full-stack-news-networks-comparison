@@ -4,3 +4,5 @@
 *.txt
 *sqlite3
 /website/thesite/thesite
+/other
+getting_credentials.py

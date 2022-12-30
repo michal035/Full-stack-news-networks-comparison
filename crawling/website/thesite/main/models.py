@@ -13,8 +13,8 @@ class tvn(models.Model):
     id =  models.AutoField(primary_key=True)
     headline = models.CharField(max_length=255)
     date = models.DateField()
-    hour = models.CharField(max_length=5, blank=True)
-    link = models.CharField(max_length=255, blank=True)
+    hour = models.CharField(max_length=5, null=True)
+    link = models.CharField(max_length=255, null=True)
 
 
     def __str__(self):
@@ -25,8 +25,8 @@ class tvp(models.Model):
     id =  models.AutoField(primary_key=True)
     headline = models.CharField(max_length=255)
     date = models.DateField()
-    hour = models.CharField(max_length=5, blank=True)
-    link = models.CharField(max_length=255, blank=True)
+    hour = models.CharField(max_length=5, null=True)
+    link = models.CharField(max_length=255, null=True)
 
 
     def __str__(self):

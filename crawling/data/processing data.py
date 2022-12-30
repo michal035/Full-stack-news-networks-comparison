@@ -34,11 +34,12 @@ def tvp():
     
     df = pd.read_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines5.csv", sep=";")
     
-    df2 = pd.DataFrame({
+    """df2 = pd.DataFrame({
 
         'article-headline' : [],
         'hour/date' : []
-        })
+        })"""
+    df2 = pd.DataFrame()
 
     for i in range(len(df)):
         
@@ -48,6 +49,10 @@ def tvp():
             temp_def = pd.DataFrame({'article-headline' : [df.iloc[i,0]],'hour/date' : [df.iloc[i,1]]})
             df2 = pd.concat([temp_def,df2], ignore_index=True)
             df2.sort_values(['hour/date'], inplace=True)
-        
+    
+    
+    df2 = df2.reset_index(drop=True)
+    df2.set_index(['article-headline', 'hour/date'])
     df2.to_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines6.csv", sep=";", mode="w")
+    
 
