@@ -1,22 +1,61 @@
 {% extends 'main/base.html' %}
 
 {%block aboutme%}
-<h1>Home page</h1>
-<p>about me ... </p>
+
+{% if lng == "Eng" %}
+    <h1>Home page</h1>
+    <p>about me ... </p>
+{% else %}
+    <h1>Strona stratowa</h1>
+    <p>o mnie ... </p>
+{% endif %}
+
 {%endblock%}
+
+
 
 {%block content%}
 
 {% if lng == "Eng" %}
-    <h1>Headlines from the current day</h1>
-    <p>some text </p>
+
+    <h1 class="theh1">Headlines from the current day</h1> 
+
 {% else %}
-    <h1>nagłówki z dnia dzisiejszego</h1>
-    <p>jakis tekst </p>
+    <h1 class="theh1">nagłówki z dnia dzisiejszego</h1>
 {% endif %}
 
+<table class="table">
+    <tthead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
 
 
+<tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
 
 
 {%endblock%}

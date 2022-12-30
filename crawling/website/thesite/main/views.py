@@ -6,18 +6,16 @@ from .models import um
 
 def index(response):
 
+    lng = "Eng"
     print(response.method)
     if response.method == 'POST':
         
-        lng = "Eng"
 
         if response.POST.get("btn1"):
             pass
         elif response.POST.get("btn2"):
             lng = "Pol"
         
-
-
 
     return render(response, "main/index.html", {"lng":lng})
 
