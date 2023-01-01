@@ -9,7 +9,19 @@ class merge():
     def __init__(self,a="",b="") -> None:
         self.tvn = a
         self.tvp = b
+
     
+    def add_other(self,key,value):
+        if key == "tvn":
+            print("function_called")
+            self.tvn = value
+            
+        else:
+            print("function_called2")
+            self.tvp = value
+
+
+
     def __repr__(self) -> str:
         return f"tvn = {self.tvn} tvp={self.tvp}"
 
@@ -33,8 +45,8 @@ def index(response):
     tvN = tvn.objects.all()
 
 
-    
-    """objs = []
+
+    objs = []
 
 
     #whole merge thing might need to beredone
@@ -45,27 +57,31 @@ def index(response):
 
     if len(tvP) > len(tvN):
         d = len(tvP)
+        dd = len(tvN)
     else:
         d = len(tvN)
+        dd = len(tvP)
         the_thing = 1
 
     for i in range(d):
         if the_thing == 1:
-            obj = merge(tvN[i].headline)
+            obj = merge(a=tvN[i].headline)
             objs.append(obj)
         else:
-            obj = merge(tvN[i].headline)
+            obj = merge(b=tvP[i].headline)
             objs.append(obj)
 
 
     for i in range(dd):
-        if the_thing == 0:
-            objs[i].tvn = 
-    """
+        if the_thing == 1: 
+            objs[i].add_other("tvp",tvP[i].headline)
+        else:
+            objs[i].add_other("tvn",tvN[i].headline)
+    
 
 
-
-    context = {'tvp': tvP,'tvn': tvN ,"lng":lng, }
+    context = {'hl': objs,"lng":lng, }
+    #context = {'tvp': tvP,'tvn': tvN ,"lng":lng, }
 
     return render(response, "main/index.html", context )
  

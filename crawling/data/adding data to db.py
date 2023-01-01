@@ -41,6 +41,7 @@ def tvp():
 
     conn.commit()
 
+tvn()
 tvp()
 
 print("done")
