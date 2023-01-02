@@ -56,3 +56,10 @@ def tvp():
     df2.to_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines6.csv", sep=";", mode="w")
     
 
+
+tvp()
+tvn()
+
+print('done')
+
+134, 129

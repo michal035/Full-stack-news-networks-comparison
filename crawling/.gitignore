@@ -6,3 +6,4 @@
 /website/thesite/thesite
 /other
 getting_credentials.py
+__pycache__/

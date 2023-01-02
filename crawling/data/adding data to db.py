@@ -23,7 +23,13 @@ def tvn():
 
     df = pd.read_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines1.csv", sep=";")
     for i in df["article-headline"]:   
-        cursor.execute(f"INSERT INTO main_tvn(headline, date) VALUES ('{i}','{u}')")
+        
+        
+        cursor.execute(f"select * from main_tvn where headline = '{i}' and date = '{u}'")
+        result = cursor.fetchone()
+        
+        if result is None:
+            cursor.execute(f"INSERT INTO main_tvn(headline, date) VALUES ('{i}','{u}')")
 
     conn.commit()
 
@@ -37,12 +43,33 @@ def tvp():
     df = pd.read_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines6.csv", sep=";")
 
     for i in range(len(df)):
-        cursor.execute(f"INSERT INTO main_tvp(headline, date, hour) VALUES ('{df.iloc[i][1]}','{u}','{df.iloc[i][2]}')")
+
+        cursor.execute(f"select * from main_tvp where headline = '{df.iloc[i][1]}' and date = '{u}'")
+        result = cursor.fetchone()
+        
+        if result is None:
+            cursor.execute(f"INSERT INTO main_tvp(headline, date, hour) VALUES ('{df.iloc[i][1]}','{u}','{df.iloc[i][2]}')")
 
     conn.commit()
 
-tvn()
-tvp()
+
+def test_query():
+    global cursor
+
+    cursor.execute(f"select * from main_tvn where headline = 'Pożar Aautokaru wiozącego turystów z Węgier' and date = '2023-01-02';")
+    
+    result = cursor.fetchone()
+    print(result)
+    print(type(result))
+    if result is None:
+        print('yh')
+    
+
+
+
+#tvn()
+#tvn()
+
 
 print("done")
 conn.close()

@@ -13,11 +13,9 @@ class merge():
     
     def add_other(self,key,value):
         if key == "tvn":
-            print("function_called")
             self.tvn = value
             
         else:
-            print("function_called2")
             self.tvp = value
 
 
