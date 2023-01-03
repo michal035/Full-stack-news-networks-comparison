@@ -1,5 +1,16 @@
 {% extends 'main/base.html' %}
 
+{%block sidething%}
+{% if lng == "Pol" %}
+  <a href="">Home</a>
+  <a href="">archiwum nagłówków</a>
+{% else %}
+  <a href="">Home</a>
+  <a href="">headline archive</a>
+{% endif %}
+
+{%endblock%}
+
 {%block aboutme%}
 
 {% if lng == "Eng" %}

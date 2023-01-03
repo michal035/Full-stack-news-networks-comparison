@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse, response
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import tvn,tvp, um
+from datetime import datetime
 
 
 class merge():
@@ -39,15 +40,22 @@ def index(response):
             lng = "Pol"
 
 
-    tvP = tvp.objects.all()
-    tvN = tvn.objects.all()
+    #tvP = tvp.objects.all()
+    #tvN = tvn.objects.all()
+
+    t = datetime.now()
+    date = t.strftime("%Y-%m-%d")
+
+    tvP = tvp.objects.raw(f"select * from main_tvp where date = '{date}'")
+    tvN = tvn.objects.raw(f"select * from main_tvn where date = '{date}'")
+
 
 
 
     objs = []
 
 
-    #whole merge thing might need to beredone
+    #whole merge thing needs to be rewritten
     d = 0
     dd = 0
     the_thing = 0
@@ -90,7 +98,14 @@ def db_test(resposne):
     print(obj)
     context = {'obj':obj}
     return render(resposne, "main/dbtest.html", {"c":context})"""
-    p = tvp.objects.all()
+
+    
+    t = datetime.now()
+    date = t.strftime("%Y-%m-%d")
+    u = f"{t.year}-{t.month}-{t.day}"
+
+
+    p = tvp.objects.raw(f"select * from main_tvp where date = '{u}'")
     context = {'p': p,}
     return render(resposne, "main/dbtest.html", context)
 

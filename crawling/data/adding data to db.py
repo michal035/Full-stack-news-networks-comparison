@@ -38,7 +38,7 @@ def tvp():
     global cursor
 
     t = datetime.now()
-    u = f"{t.year}-{t.month}-{t.day}    "
+    u = f"{t.year}-{t.month}-{t.day}"
 
     df = pd.read_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines6.csv", sep=";")
 
@@ -67,8 +67,8 @@ def test_query():
 
 
 
-#tvn()
-#tvn()
+tvn()
+tvp()
 
 
 print("done")
