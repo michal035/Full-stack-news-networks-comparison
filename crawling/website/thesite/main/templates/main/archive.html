@@ -7,5 +7,35 @@
 
 {%block content%}
 
-<p>{{l}}</p>
+    {% if lng == "Eng" %}
+
+        <h1 class="theh1">Headlines from the current day</h1> 
+
+    {% else %}
+        <h1 class="theh1">nagłówki z dnia dzisiejszego</h1>
+    {% endif %}
+
+    <table class="table">
+        <tthead>
+        <tr>
+        <th scope="col">TVN</th>
+        <th scope="col">TVP</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        
+    {% for i  in l %}
+        {% for j  in i %}
+            <tr>
+            <td>{{j.tvn}}</td>
+            <td>{{j.tvp}}</td>
+            </tr>
+        {% endfor %}
+        <tr><td> </td> <td></td</tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
 {%endblock%}
