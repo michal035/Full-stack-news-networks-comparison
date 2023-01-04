@@ -92,6 +92,12 @@ def index(response):
     return render(response, "main/index.html", context )
  
 
+def archive(response, number_of_days=1):
+    return render(response, "main/archive.html",{'l':number_of_days} )
+ 
+
+
+
 
 def db_test(resposne):
     """obj = um.objects.all()

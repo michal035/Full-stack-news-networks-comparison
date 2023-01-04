@@ -57,8 +57,8 @@ def tvp():
     
 
 
-tvp()
-tvn()
-
-print('done')
+if __name__ == "__main__":
+    tvp()
+    tvn()
+    print('done')
 

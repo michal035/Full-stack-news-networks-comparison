@@ -69,7 +69,6 @@ def test_query():
 
 tvn()
 tvp()
-
-
 print("done")
+
 conn.close()
