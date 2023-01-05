@@ -28,12 +28,19 @@
         
     {% for i  in l %}
         {% for j  in i %}
+            
+        {% if j.tvn == "info" %}
+            <tr><td colspan="2"> <center>I {{j.tvp}}</center> </td></tr>
+    
+        {% else %}
             <tr>
             <td>{{j.tvn}}</td>
             <td>{{j.tvp}}</td>
             </tr>
+        {% endif %}
+
         {% endfor %}
-        <tr><td> </td> <td></td</tr>
+        
     {% endfor %}
     </tbody>
     </table>

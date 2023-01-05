@@ -3,6 +3,8 @@ from django.http import JsonResponse, response
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import tvn,tvp, um
 from datetime import datetime
+from calendar import monthrange
+
 
 
 class merge():
@@ -44,7 +46,6 @@ def adding_stuff_to_merge(tvP,tvN):
         the_thing = 1
 
     for i in range(d):
-        #here needs to be added that blank or so
         if the_thing == 1:
             obj = merge(a=tvN[i].headline)
             objs.append(obj)
@@ -59,7 +60,12 @@ def adding_stuff_to_merge(tvP,tvN):
         else:
             objs[i].add_other("tvn",tvN[i].headline)
     
+    objs.append(merge('info','customdate'))
     return objs
+
+
+def number_of_days_in_month(year=2023, month=2):
+    return monthrange(year, month)[1]
 
 
 def index(response):
@@ -94,7 +100,7 @@ def index(response):
     return render(response, "main/index.html", context )
  
 
-def archive(response, number_of_days=1):
+def archive(response, number_of_months=1):
     
     t = datetime.now()
     
@@ -116,7 +122,6 @@ def archive(response, number_of_days=1):
             day -= 1
         else:
             month -=1"""
-    # 1 -> 2
 
     day = t.day
     month = t.month
@@ -125,37 +130,38 @@ def archive(response, number_of_days=1):
     eh = 1
     
 
+    contex_information = []
     list_of_objs = []
-    while  eh <= int(number_of_days):
+    
 
-        date = f"{year}-{month}-{28}" #
+    while  eh <= int(number_of_months):
+
+        date = f"{year}-{month}-{int(number_of_days_in_month(year, int(month)))}" #
+        date2 = f"{year}-{month}-{1}"
         
-        #date2 = f"{year}-{month}-{1}"
-        if month == 1:
+        """if month == 1:
             date2 = f"{year-1}-12-{1}"
         else:
-            date2 = f"{year}-{month-1}-{1}" 
+            date2 = f"{year}-{month-1}-{1}" """
         
-        print(f"date2 - {date2} date - {date}")
         tvP = tvp.objects.raw(f"select * from main_tvp where date between '{date2}' and '{date}'")
         tvN = tvn.objects.raw(f"select * from main_tvn where date between '{date2}' and '{date}'")
+        
 
+        #call function that count amount of keywords
 
         if month == 1:
             year -= 1
             month = 11
         else:
-            month -= 2
+            month -= 1
 
         objs = adding_stuff_to_merge(tvP,tvN)
         list_of_objs.append(objs)
         eh +=1
-    
+
+
     return render(response, "main/archive.html",{'l': list_of_objs} )
-    #return render(response, "main/archive.html",{'l':number_of_days} )
- 
-
-
 
 
 
@@ -174,4 +180,3 @@ def db_test(resposne):
     p = tvp.objects.raw(f"select * from main_tvp where date = '{u}'")
     context = {'p': p,}
     return render(resposne, "main/dbtest.html", context)
-
