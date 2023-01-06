@@ -9,9 +9,10 @@ from calendar import monthrange
 
 class merge():
 
-    def __init__(self,a="",b="") -> None:
+    def __init__(self,a="",b="",c = "") -> None:
         self.tvn = a
         self.tvp = b
+        self.c = c
 
     
     def add_other(self,key,value):
@@ -27,7 +28,7 @@ class merge():
         return f"tvn = {self.tvn} tvp={self.tvp}"
 
 
-def adding_stuff_to_merge(tvP,tvN):
+def adding_stuff_to_merge(tvP,tvN, month=""):
     objs = []
 
 
@@ -45,6 +46,11 @@ def adding_stuff_to_merge(tvP,tvN):
         dd = len(tvP)
         the_thing = 1
 
+    if month != "":
+        objs.append(merge(a='info_podsumowanie',b=month))
+        objs.append(merge('Keyword1 = 0','keyword2 = 0',"c"))
+
+
     for i in range(d):
         if the_thing == 1:
             obj = merge(a=tvN[i].headline)
@@ -54,13 +60,22 @@ def adding_stuff_to_merge(tvP,tvN):
             objs.append(obj)
 
 
-    for i in range(dd):
-        if the_thing == 1: 
-            objs[i].add_other("tvp",tvP[i].headline)
-        else:
-            objs[i].add_other("tvn",tvN[i].headline)
+    if month != "":
+        for i in range(dd):
+            if the_thing == 1: 
+                objs[i+2].add_other("tvp",tvP[i].headline)
+            else:
+                objs[i+2].add_other("tvn",tvN[i].headline)
     
-    objs.append(merge('info','customdate'))
+    if month == "":
+        for i in range(dd):
+            if the_thing == 1: 
+                objs[i].add_other("tvp",tvP[i].headline)
+            else:
+                objs[i].add_other("tvn",tvN[i].headline)
+    
+    #here
+    
     return objs
 
 
@@ -150,14 +165,17 @@ def archive(response, number_of_months=1):
 
         #call function that count amount of keywords
 
+        objs = adding_stuff_to_merge(tvP,tvN,f"{month}/{year}")
+        list_of_objs.append(objs)
+
+
         if month == 1:
             year -= 1
-            month = 11
+            month = 12
         else:
             month -= 1
 
-        objs = adding_stuff_to_merge(tvP,tvN)
-        list_of_objs.append(objs)
+    
         eh +=1
 
 
@@ -171,7 +189,6 @@ def db_test(resposne):
     context = {'obj':obj}
     return render(resposne, "main/dbtest.html", {"c":context})"""
 
-    
     t = datetime.now()
     date = t.strftime("%Y-%m-%d")
     u = f"{t.year}-{t.month}-{t.day}"

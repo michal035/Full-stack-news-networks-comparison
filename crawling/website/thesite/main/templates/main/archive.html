@@ -17,10 +17,12 @@
 
     <table class="table">
         <tthead>
-        <tr>
-        <th scope="col">TVN</th>
-        <th scope="col">TVP</th>
-        </tr>
+        
+            <tr  style="position: sticky; top: 0;background-color: white; padding: 10px;">
+            <th scope="col"><center>TVN</center></th>
+            <th scope="col"><center>TVP</center></th>
+            </tr>
+        
     </thead>
 
 
@@ -29,14 +31,21 @@
     {% for i  in l %}
         {% for j  in i %}
             
-        {% if j.tvn == "info" %}
-            <tr><td colspan="2"> <center>I {{j.tvp}}</center> </td></tr>
+        {% if j.tvn == "info_podsumowanie" %}
+            <tr><td colspan="2"> <center><h4>podsumowanie nagłówków z {{j.tvp}}</h4></center> </td></tr>
     
         {% else %}
+            {% if j.c == "c" %}
+            <tr><td>{{j.tvn}}</td><td>{{j.tvp}}</td></tr>
+    
+            {% else %}
+
+
             <tr>
             <td>{{j.tvn}}</td>
             <td>{{j.tvp}}</td>
             </tr>
+        {% endif %}
         {% endif %}
 
         {% endfor %}
