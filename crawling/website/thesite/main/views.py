@@ -23,6 +23,8 @@ class merge():
         return f"tvn = {self.tvn} tvp={self.tvp}"
 
 
+
+
 def adding_stuff_to_merge(tvP, tvN, month=""):
     objs = []
 
@@ -165,7 +167,7 @@ def archive(response, number_of_months=1):
 
 
 def statistics(response):
-    return render(response, "main/statistics")
+    return render(response, "main/statistics.html")
 
 
 def db_test(response):
