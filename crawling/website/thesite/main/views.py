@@ -12,7 +12,6 @@ class merge():
         self.tvn = a
         self.tvp = b
         self.c = c
-
     def add_other(self, key, value):
         if key == "tvn":
             self.tvn = value
