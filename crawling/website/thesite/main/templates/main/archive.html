@@ -51,7 +51,18 @@
         {% endfor %}
         
     {% endfor %}
+    
+   
     </tbody>
     </table>
+
+{%endblock%}
+
+{%block aftercontent%}
+                    
+<form method="post" action="#">
+    {% csrf_token %}
+    <center><button type="submit" value="newpage" name="btn3" class="btn btn-dark">next page</button></center>
+</form>
 
 {%endblock%}

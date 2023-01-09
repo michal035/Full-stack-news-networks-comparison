@@ -99,11 +99,18 @@
         </div>
 
 
-        <div id="content", class="main">   
-            <div class="row justify-content-center">
-                <div class="col-8">
-                    <hr class="mt-0 mb-4">
-                    {%block content%}
+        
+        <div id="content", style="display: flex; flex-direction: column;">   
+            <div style="display: flex; flex-direction: column;">
+                <div class="row justify-content-center">
+                    <div class="col-8">
+                        <hr class="mt-0 mb-4">
+                        {%block content%}
+                        {%endblock%}
+                    </div>
+                </div>
+                <div>
+                    {%block aftercontent%}
                     {%endblock%}
                 </div>
             </div>

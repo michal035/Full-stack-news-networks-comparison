@@ -4,6 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import tvn, tvp, um
 from datetime import datetime
 from calendar import monthrange
+from django.shortcuts import redirect
+
 
 
 class merge():
@@ -110,6 +112,13 @@ def archive(response, number_of_months=1):
 
     date = t.strftime("%Y-%m-%d")
 
+
+    if response.method == "POST":
+        if response.POST.get("btn3"):
+            number_of_months = int(number_of_months) + 1
+            return redirect(f"/archive/{number_of_months}/")
+
+    
     """day = t.day
     month = t.month
     year = t.year
