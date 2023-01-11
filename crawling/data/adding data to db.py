@@ -24,7 +24,7 @@ def tvn():
     df = pd.read_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines1.csv", sep=";")
     for i in df["article-headline"]:   
         
-        
+        i = i.replace("'","")
         cursor.execute(f"select * from main_tvn where headline = '{i}' and date = '{u}'")
         result = cursor.fetchone()
         
@@ -43,7 +43,8 @@ def tvp():
     df = pd.read_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines6.csv", sep=";")
 
     for i in range(len(df)):
-
+        
+        i = i.replace("'","")
         cursor.execute(f"select * from main_tvp where headline = '{df.iloc[i][1]}' and date = '{u}'")
         result = cursor.fetchone()
         
