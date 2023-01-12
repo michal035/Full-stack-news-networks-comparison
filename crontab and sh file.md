@@ -14,5 +14,5 @@ python adding\ data\ to\ db.py
 cronatab
 
 ```
-50 23 * * * home/user/scripts/job.sh
+50 23 * * * /home/user/scripts/job.sh
 ```
