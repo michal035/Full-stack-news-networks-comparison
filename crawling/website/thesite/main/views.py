@@ -192,3 +192,9 @@ def db_test(response):
     p = tvp.objects.raw(f"select * from main_tvp where date = '{u}'")
     context = {'p': p, }
     return render(response, "main/dbtest.html", context)
+
+
+
+def index2(response):
+
+    return render(response, "main/index2.html")

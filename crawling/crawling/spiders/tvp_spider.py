@@ -32,7 +32,7 @@ class stvp(CrawlSpider):
     def start_requests(self):
         url="https://www.tvp.info/"
         re =  Request(url, callback=self.parse_item)
-        re.meta["proxy"] = self.CUSTOM_PROXY
+        #re.meta["proxy"] = self.CUSTOM_PROXY
 
 
 

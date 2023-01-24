@@ -140,7 +140,7 @@ class stvn_e(CrawlSpider):
 
 
         re =  Request(url=url, callback=self.parse_item)
-        re.meta["proxy"] = self.CUSTOM_PROXY
+        #re.meta["proxy"] = self.CUSTOM_PROXY
 
 
         # Set the headers here. 
