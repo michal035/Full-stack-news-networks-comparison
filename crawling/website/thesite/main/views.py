@@ -5,8 +5,8 @@ from .models import tvn, tvp, um
 from datetime import datetime
 from calendar import monthrange
 from django.shortcuts import redirect
-
-
+from .serializers import TvnSerializer
+import json
 
 class merge():
 
@@ -193,6 +193,63 @@ def db_test(response):
     context = {'p': p, }
     return render(response, "main/dbtest.html", context)
 
+
+
+def api(response, keyword=None ):
+    
+    
+    if keyword.isdigit() == True:
+        t = datetime.now()
+        date = t.strftime("%Y-%m-%d")
+        u = f"{t.year}-{t.month}-{t.day}"
+
+        eh = 1
+        day = t.day
+        month = t.month
+        year = t.year
+
+        list_of_objs = [[],[]]
+
+        while eh <= int(keyword):
+
+            date = f"{year}-{month}-{int(number_of_days_in_month(year, int(month)))}"
+            date2 = f"{year}-{month}-{1}"
+
+
+            tvP = tvp.objects.raw(
+                f"select * from main_tvp where date between '{date2}' and '{date}';")
+            tvN = tvn.objects.raw(
+                f"select * from main_tvn where date between '{date2}' and '{date}';")
+
+           
+            p = len(tvP)
+            n = len(tvN)
+
+        
+            for i in range(p):
+                print(tvP[i].headline)
+                list_of_objs[0].append(tvP[i].headline)
+            for i in range(n):
+                list_of_objs[1].append(tvN[i].headline)
+
+
+            if month == 1:
+                year -= 1
+                month = 12
+            else:
+                month -= 1
+
+            eh += 1
+
+
+        return HttpResponse(json.dumps(list_of_objs, ensure_ascii=False))
+        
+        #return JsonResponse(list_of_objs, safe=False)
+    
+    elif  keyword == "keywords":
+        pass
+    else:
+        pass
 
 
 def index2(response):

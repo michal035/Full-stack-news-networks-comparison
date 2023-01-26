@@ -8,6 +8,9 @@ urlpatterns = [
     path('archive/<number_of_months>/', views.archive),
     path('dbtest/', views.db_test),
     path('statistics/', views.statistics),
-    path('index2/', views.index2)
+    path('index2/', views.index2),
+    path('api/', views.api),
+    path('api/<keyword>/', views.api)
+ 
 
 ]
