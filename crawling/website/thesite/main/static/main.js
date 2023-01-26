@@ -32,8 +32,8 @@ function show(data) {
         <tthead>
         
             <tr  style="position: sticky; top: 0;background-color: white; padding: 10px;">
-            <th scope="col" id="A"><center>TVN</center></th>
-            <th scope="col" id="B"><center>TVP</center></th>
+            <th scope="col" id="A"><style="font-weight: bold; ">TVN</center></th>
+            <th scope="col" id="B"><center style="font-weight: bold; ">TVP</center></th>
             </tr>
         
         </thead>
