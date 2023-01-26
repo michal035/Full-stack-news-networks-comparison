@@ -185,13 +185,14 @@ def db_test(response):
     context = {'obj':obj}
     return render(response, "main/dbtest.html", {"c":context})"""
 
-    t = datetime.now()
+    """ t = datetime.now()
     date = t.strftime("%Y-%m-%d")
     u = f"{t.year}-{t.month}-{t.day}"
 
     p = tvp.objects.raw(f"select * from main_tvp where date = '{u}'")
     context = {'p': p, }
-    return render(response, "main/dbtest.html", context)
+    return render(response, "main/dbtest.html", context)"""
+    return render(response, "main/base2.html")
 
 
 
