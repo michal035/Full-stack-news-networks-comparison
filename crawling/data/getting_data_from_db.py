@@ -2,6 +2,7 @@ from  getting_credentials import get
 import psycopg2
 import pandas as pd
 from datetime import datetime
+import numpy as np
 
 
 data = get()
@@ -35,14 +36,39 @@ df_tvn[1] = df_tvn[1].str.lower()
 df_tvp[1] = df_tvp[1].str.lower()
 
 
-def look_for_certain_keyword(df, keyword):
+
+def look_for_certain_keyword(df, keyword, extra=False):
     keyword = keyword.lower()
     new_df = df.applymap(lambda x: keyword in x.lower() if isinstance(x,str) else False)
-    print(len(df[1]==keyword))
+    
+    number_of_occrencies = len(new_df[new_df[1] == True])
+
+    if extra == True:
+    
+        a = new_df.index[new_df[1]==True].tolist()
+
+        pd.options.display.max_colwidth = 100
+        for i in a:
+            print(df.iloc[i])
+   
+    
+
+    return number_of_occrencies
 
 
-    return new_df
 
-print(look_for_certain_keyword(df_tvp, "tvn"))
+print(look_for_certain_keyword(df_tvp, "pol"))
 
 
+#might need to improve it / automate
+def advanced_search(df, keyword_base, test=False):
+    look_for_certain_keyword(df, keyword_base, True)
+    
+
+
+def keywords_search(df):
+    dict_of_words = {}
+    for i in df[1]:
+        print(i)
+
+keywords_search(df_tvn)
