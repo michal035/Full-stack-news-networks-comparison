@@ -3,6 +3,8 @@ import psycopg2
 import pandas as pd
 from datetime import datetime
 import numpy as np
+import re
+import unicodedata
 
 
 data = get()
@@ -66,9 +68,34 @@ def advanced_search(df, keyword_base, test=False):
     
 
 
-def keywords_search(df):
-    dict_of_words = {}
-    for i in df[1]:
-        print(i)
+def keywords_search(dff):
+    df = pd.DataFrame(columns= ["word", "number"])
+    list_of_not_words = ["się","i","są","to","jest","jak","nie","był"]
 
-keywords_search(df_tvn)
+    for i in dff[1]:
+
+        i = unicodedata.normalize("NFKD", i)
+        i = i .split(" ")
+        
+        for word in i:
+            
+            word = word.replace("'","")
+            word = word.replace('"',"")
+            
+            if word in list_of_not_words:
+                pass
+            
+            else:
+                pass
+                if word in list(df['word']):
+
+                    index = list(df.index[df["word"] == word])[0]
+                    df.at[index, "number"] = int(df.iloc[index].number) + 1
+
+                else:
+                    df = pd.concat([df, pd.DataFrame.from_records([{ 'word': word, 'number': 1 }])], ignore_index=True)
+    
+    return df
+
+
+print((keywords_search(df_tvn).sort_values(by=['number'],ascending=False)).head(30))
