@@ -5,6 +5,7 @@ from datetime import datetime
 import numpy as np
 import re
 import unicodedata
+from unidecode import unidecode
 
 
 data = get()
@@ -40,7 +41,15 @@ df_tvp[1] = df_tvp[1].str.lower()
 
 
 def look_for_certain_keyword(df, keyword, extra=False):
-    keyword = keyword.lower()
+    
+    keyword = keyword.lower() 
+    df[1] = df[1].str.lower()
+    df[1] = df[1].str.replace(",","")
+    df[1] = df[1].str.replace(".","")
+    df[1] = df[1].str.replace("'","")
+    df[1] = df[1].str.replace('"',"")
+
+
     new_df = df.applymap(lambda x: keyword in x.lower() if isinstance(x,str) else False)
     
     number_of_occrencies = len(new_df[new_df[1] == True])
@@ -59,7 +68,9 @@ def look_for_certain_keyword(df, keyword, extra=False):
 
 
 
-print(look_for_certain_keyword(df_tvp, "pol"))
+#print(look_for_certain_keyword(df_tvn, "sankcje"))
+
+
 
 
 #might need to improve it / automate
@@ -70,23 +81,36 @@ def advanced_search(df, keyword_base, test=False):
 
 def keywords_search(dff):
     df = pd.DataFrame(columns= ["word", "number"])
-    list_of_not_words = ["się","i","są","to","jest","jak","nie","był"]
+
+    list_of_not_words = ["się","i","są","to","jest","jak","nie","był","w", "na", "z", "się", " ", "do", "o", "po", "przez", "za", "sprawie", "od"
+    ,"co", "dla", "tak", "jej", "ma","będzie", "już", "że", "lat", "[wideo]", "ws", "ani", "pod", "go"]
+
+
 
     for i in dff[1]:
 
         i = unicodedata.normalize("NFKD", i)
+        #i = unidecode(i)
         i = i .split(" ")
         
         for word in i:
             
             word = word.replace("'","")
             word = word.replace('"',"")
+            word = word.replace(".","")
+            word = word.replace(",", "")
             
+
             if word in list_of_not_words:
                 pass
             
             else:
-                pass
+                
+                if word == "sankcje":
+                    #print(f"found {i}")
+                    pass
+
+
                 if word in list(df['word']):
 
                     index = list(df.index[df["word"] == word])[0]
@@ -98,4 +122,6 @@ def keywords_search(dff):
     return df
 
 
-print((keywords_search(df_tvn).sort_values(by=['number'],ascending=False)).head(30))
+print((keywords_search(df_tvp).sort_values(by=['number'],ascending=False)).head(50))
+
+
