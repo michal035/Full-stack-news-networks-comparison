@@ -68,48 +68,98 @@ def look_for_certain_keyword(df, keyword, extra=False):
 
 
 
-#print(look_for_certain_keyword(df_tvn, "sankcje"))
+#print(look_for_certain_keyword(df_tvp, "ukrain"))
 
 
-
-
-#might need to improve it / automate
-def advanced_search(df, keyword_base, test=False):
-    look_for_certain_keyword(df, keyword_base, True)
+#might need to put this into seprate file yeah
+def clean_punctuation(i):
     
+    i = i.replace("\xa0"," ")
+    
+
+    i = i.replace("'","")
+    i = i.replace('"',"")
+    i = i.replace(".","")
+    i = i.replace(",", "")
+    i = i.replace("!", "")
+    i = i.replace("?", "")
+
+    i = i .split(" ")
+
+    return i 
+
+
+# basically I  want to count words like 'car' and 'cars' as the same keyword
+def keywords_search_v2(df):
+    pd.options.display.max_colwidth = 100
+    df_silimary_words = pd.DataFrame(columns= ["word", "number", "original_word"])
+    unnecessary = ["[VIDEO]"]
+    list_of_political_parites = ["pis","psl","205"]
+
+
+    for i in df[1]:
+        i = clean_punctuation(i)
+
+        
+        for word in i:
+            if word in unnecessary:
+                pass
+            else:
+                #exceptions just for the political parites - just the one with shortcuts ig
+                if (len(word) == 4 or len(word) == 3)and word[:3] in list_of_political_parites:
+                    
+                    first_letters = word[:3]
+                    if first_letters in  list(df_silimary_words['word']):
+                        index = list(df_silimary_words.index[df_silimary_words["word"] == first_letters])[0]
+                        df_silimary_words.at[index,"number"] = int(df_silimary_words.iloc[index].number) + 1
+                        df_silimary_words.at[index,"original_word"] = f"{str(df_silimary_words.iloc[index].original_word)}, {word}"
+                    else:
+                        df_silimary_words = pd.concat([df_silimary_words, pd.DataFrame.from_records([{ 'word': first_letters, 'number': 1 , "original_word" : word}])], ignore_index=True)
+                
+                elif len(word) >= 4:
+                    first_letters = word[:4]
+                    if first_letters in  list(df_silimary_words['word']):
+                        index = list(df_silimary_words.index[df_silimary_words["word"] == first_letters])[0]
+                        df_silimary_words.at[index,"number"] = int(df_silimary_words.iloc[index].number) + 1
+                        df_silimary_words.at[index,"original_word"] = f"{str(df_silimary_words.iloc[index].original_word)}, {word}"
+                    else:
+                        df_silimary_words = pd.concat([df_silimary_words, pd.DataFrame.from_records([{ 'word': first_letters, 'number': 1 , "original_word" : word}])], ignore_index=True)
+                        
+                else:
+                    #here just needs to be added 
+                    pass
+
+            
+    return df_silimary_words
+
+print(keywords_search_v2(df_tvn).sort_values(by=['number'],ascending=False).head(50))
+
 
 
 def keywords_search(dff):
+
     df = pd.DataFrame(columns= ["word", "number"])
+    df_silimary_words = pd.DataFrame(columns= ["word", "number", "original_indexes"])
 
     list_of_not_words = ["się","i","są","to","jest","jak","nie","był","w", "na", "z", "się", " ", "do", "o", "po", "przez", "za", "sprawie", "od"
-    ,"co", "dla", "tak", "jej", "ma","będzie", "już", "że", "lat", "[wideo]", "ws", "ani", "pod", "go"]
+    ,"co", "dla", "tak", "jej", "ma","będzie", "już", "że", "lat", "[wideo]", "ws", "ani", "pod", "go", 'ze']
 
 
 
     for i in dff[1]:
 
-        i = unicodedata.normalize("NFKD", i)
+        #i = unicodedata.normalize("NFKD", i)
         #i = unidecode(i)
-        i = i .split(" ")
-        
-        for word in i:
-            
-            word = word.replace("'","")
-            word = word.replace('"',"")
-            word = word.replace(".","")
-            word = word.replace(",", "")
-            
+        #i = i .split(" ")
 
+        i = clean_punctuation(i)
+
+        for word in i:
+        
             if word in list_of_not_words:
                 pass
             
             else:
-                
-                if word == "sankcje":
-                    #print(f"found {i}")
-                    pass
-
 
                 if word in list(df['word']):
 
@@ -122,6 +172,7 @@ def keywords_search(dff):
     return df
 
 
-print((keywords_search(df_tvp).sort_values(by=['number'],ascending=False)).head(50))
+#top = (keywords_search(df_tvn).sort_values(by=['number'],ascending=False)).head(50)
+
 
 
