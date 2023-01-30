@@ -179,19 +179,15 @@ def statistics(response):
     return render(response, "main/statistics.html")
 
 
-def db_test(response):
-    """obj = um.objects.all()
-    print(obj)
-    context = {'obj':obj}
-    return render(response, "main/dbtest.html", {"c":context})"""
+def db_test(response, keyword=None):
+    
+    if response.method == "POST":
+        if response.POST.get("thebtN"):
+            keyword = int(keyword) + 1
+            return redirect(f"/dbtest/{keyword}/")
 
-    """ t = datetime.now()
-    date = t.strftime("%Y-%m-%d")
-    u = f"{t.year}-{t.month}-{t.day}"
 
-    p = tvp.objects.raw(f"select * from main_tvp where date = '{u}'")
-    context = {'p': p, }
-    return render(response, "main/dbtest.html", context)"""
+
     return render(response, "main/base2.html")
 
 

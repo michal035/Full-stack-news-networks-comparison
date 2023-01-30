@@ -77,7 +77,12 @@
 
     <br>
 
-    <center><div style="width: 40%;"><a class="btn btn-outline-primary" style="width: 100%;" href="#!">Load another month!</a></div></center>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <div id="theplace">
+
+        </div>
+    </form>
 
     <br>
 
