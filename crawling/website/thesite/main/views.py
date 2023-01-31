@@ -78,8 +78,21 @@ def api(response, keyword=None ):
         
         #return JsonResponse(list_of_objs, safe=False)
     
-    elif  keyword == "keywords":
-        pass
+    
+
+    #Without real key words for now - I want to do .js file first
+    elif  keyword == "key_words":
+
+        data = []
+
+        for i in range(8):
+            data.append({
+            "headline" : "testheadline",
+            "first_cell" : "TVN: 20",
+            "second_cell" : "TVP: 50"
+            },)
+        
+        return HttpResponse(json.dumps(data, ensure_ascii=False))
     else:
         pass
 

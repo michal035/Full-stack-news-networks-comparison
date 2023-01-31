@@ -28,7 +28,7 @@ function hideloader() {
 
 
 function show(data) {
-    var a = data
+
     let tab = 
         ` <table class="table">
         <tthead>
