@@ -93,7 +93,7 @@ def keywords_search_v2(df):
             
     return df_silimary_words
 
-#print(keywords_search_v2(df_tvn).sort_values(by=['number'],ascending=False).head(50))
+print(keywords_search_v2(df_tvn).sort_values(by=['number'],ascending=False).head(50))
 
 
 

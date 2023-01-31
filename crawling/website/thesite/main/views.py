@@ -252,3 +252,7 @@ def api(response, keyword=None ):
 def index2(response):
 
     return render(response, "main/index2.html")
+
+
+def key_words(response):
+    return render(response, "main/key_words.html")

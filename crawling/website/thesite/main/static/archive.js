@@ -70,8 +70,3 @@ function show(data) {
 }
 
 
-var btn = document.getElementById("thebtn");
-btn.addEventListener("click", function()
-{
-    page_number = page_number + 1
-})
