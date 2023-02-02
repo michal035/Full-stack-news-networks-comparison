@@ -54,18 +54,6 @@ def tvp():
     conn.commit()
 
 
-def test_query():
-    global cursor
-
-    cursor.execute(f"select * from main_tvn where headline = 'Pożar Aautokaru wiozącego turystów z Węgier' and date = '2023-01-02';")
-    
-    result = cursor.fetchone()
-    print(result)
-    print(type(result))
-    if result is None:
-        print('yh')
-    
-
 
 
 tvn()

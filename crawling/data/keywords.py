@@ -93,7 +93,7 @@ def keywords_search_v2(df):
             
     return df_silimary_words
 
-print(keywords_search_v2(df_tvn).sort_values(by=['number'],ascending=False).head(50))
+#print(keywords_search_v2(df_tvn).sort_values(by=['number'],ascending=False).head(50))
 
 
 
@@ -132,7 +132,6 @@ def look_for_certain_keyword(df, keyword, extra=False):
 
 
 
-
 #basic keyword search
 def keywords_search(dff):
 
@@ -168,7 +167,14 @@ def keywords_search(dff):
     return df
 
 
-#top = (keywords_search(df_tvn).sort_values(by=['number'],ascending=False)).head(50)
 
+df_tvn = (keywords_search(df_tvn).sort_values(by=['number'],ascending=False)).head(50)
+df_tvp = (keywords_search(df_tvp).sort_values(by=['number'],ascending=False)).head(50)
+
+
+
+if __name__ != "__main__":
+    df_tvn.to_csv("/home/michal/Documents/Python/scraping/test/crawling/data/tvn_key_words.csv")
+    df_tvp.to_csv("/home/michal/Documents/Python/scraping/test/crawling/data/tvp_key_words.csv")
 
 
