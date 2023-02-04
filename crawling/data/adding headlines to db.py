@@ -44,7 +44,7 @@ def tvp():
 
     for i in range(len(df)):
         
-        g = df.iloc[i][1].replace("'","")
+        g = str(df.iloc[i][1]).replace("'","")
         cursor.execute(f"select * from main_tvp where headline = '{g}' and date = '{u}'")
         result = cursor.fetchone()
         

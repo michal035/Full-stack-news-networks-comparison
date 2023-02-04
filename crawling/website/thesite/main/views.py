@@ -59,7 +59,6 @@ def api(response, keyword=None ):
 
         
             for i in range(p):
-                print(tvP[i].headline)
                 list_of_objs[0].append(tvP[i].headline)
             for i in range(n):
                 list_of_objs[1].append(tvN[i].headline)
@@ -104,3 +103,4 @@ def index2(response):
 
 def key_words(response):
     return render(response, "main/key_words.html")
+

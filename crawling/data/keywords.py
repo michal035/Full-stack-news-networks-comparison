@@ -75,6 +75,7 @@ def keywords_search_v2(df):
                 
                 elif len(word) >= 4:
                     first_letters = word[:4]
+                    #here needs to be added filter for know exceptions like policja and polityka
                     if first_letters in  list(df_silimary_words['word']):
                         index = list(df_silimary_words.index[df_silimary_words["word"] == first_letters])[0]
                         df_silimary_words.at[index,"number"] = int(df_silimary_words.iloc[index].number) + 1
@@ -93,9 +94,8 @@ def keywords_search_v2(df):
             
     return df_silimary_words
 
+
 #print(keywords_search_v2(df_tvn).sort_values(by=['number'],ascending=False).head(50))
-
-
 
 
 
@@ -127,53 +127,20 @@ def look_for_certain_keyword(df, keyword, extra=False):
     return number_of_occrencies
 
 
-
-#print(look_for_certain_keyword(df_tvp, "ukrain"))
-
+#print(look_for_certain_keyword(df_tvn, "tvp", True))
 
 
-#basic keyword search
-def keywords_search(dff):
-
-    df = pd.DataFrame(columns= ["word", "number"])
-    df_silimary_words = pd.DataFrame(columns= ["word", "number", "original_indexes"])
-
-    list_of_not_words = get_list_of_unnecessary_words()
-
-
-    for i in dff[1]:
-
-        #i = unicodedata.normalize("NFKD", i)
-        #i = unidecode(i)
-        #i = i .split(" ")
-
-        i = clean_punctuation(i)
-
-        for word in i:
-        
-            if word in list_of_not_words:
-                pass
-            
-            else:
-
-                if word in list(df['word']):
-
-                    index = list(df.index[df["word"] == word])[0]
-                    df.at[index, "number"] = int(df.iloc[index].number) + 1
-
-                else:
-                    df = pd.concat([df, pd.DataFrame.from_records([{ 'word': word, 'number': 1 }])], ignore_index=True)
-    
-    return df
-
-
-
-df_tvn = (keywords_search(df_tvn).sort_values(by=['number'],ascending=False)).head(50)
-df_tvp = (keywords_search(df_tvp).sort_values(by=['number'],ascending=False)).head(50)
+#This is just so i could get full df from separate file
+def get_full_data_frames():
+    return df_tvn, df_tvp
 
 
 
 if __name__ != "__main__":
+    
+    df_tvn = keywords_search_v2(df_tvn).sort_values(by=['number'],ascending=False).head(100)
+    df_tvp = keywords_search_v2(df_tvp).sort_values(by=['number'],ascending=False).head(100)
+
     df_tvn.to_csv("/home/michal/Documents/Python/scraping/test/crawling/data/tvn_key_words.csv")
     df_tvp.to_csv("/home/michal/Documents/Python/scraping/test/crawling/data/tvp_key_words.csv")
 
