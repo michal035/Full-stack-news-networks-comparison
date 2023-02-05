@@ -5,6 +5,24 @@ import keywords
 from keywords import get_full_data_frames
 
 
+
+data = get()
+
+conn = psycopg2.connect(
+   database=data[2], user=data[0], password=data[1], host='127.0.0.1', port= '5432'
+)
+
+conn.autocommit = True
+
+
+cursor = conn.cursor()
+
+
+cursor.execute(f"truncate keywords")
+conn.commit()
+
+
+
 df_tvn = pd.read_csv("crawling/data/tvn_key_words.csv")
 df_tvp = pd.read_csv("crawling/data/tvp_key_words.csv")
 
@@ -38,14 +56,16 @@ def getting_pure_word(df):
 for i in list_of_words:
    if i in df_tvp["word"].values and i in df_tvn["word"].values:
       
-      tvn = list(df_tvn["number"][df_tvn["word"] == i])[0]
-      tvp = list(df_tvp["number"][df_tvp["word"] == i])[0]
+      tvn = int(list(df_tvn["number"][df_tvn["word"] == i])[0])
+      tvp = int(list(df_tvp["number"][df_tvp["word"] == i])[0])
       
       the_word = getting_pure_word(df_tvp)
 
+      
+      cursor.execute(f"insert into keywords values ('{the_word}',{tvn},{tvp})")
+      conn.commit()
 
-
-      print(f"{the_word}  TVN: {tvn}   TVP: {tvp}")
+      #print(f"{the_word}  TVN: {tvn}   TVP: {tvp}")
 
    else:
       if i in df_tvn["word"].values:
@@ -55,7 +75,7 @@ for i in list_of_words:
          try:
             tvp = list(df["number"][df["word"]==i])[0]
          except:
-            tvp = "<2"
+            tvp = "2"
          
 
          the_word = getting_pure_word(df_tvn)
@@ -63,7 +83,9 @@ for i in list_of_words:
          tvn = list(df_tvn["number"][df_tvn["word"] == i])[0]
 
 
-         print(f"{the_word}  TVN: {tvn}   TVP: {tvp}")
+         cursor.execute(f"insert into keywords (keyword,tvn,tvp) values ('{the_word}',{tvn},{tvp})")
+         conn.commit()
+         #print(f"{the_word}  TVN: {tvn}   TVP: {tvp}")
 
             
       elif i in df_tvp["word"].values:
@@ -73,7 +95,7 @@ for i in list_of_words:
          try:
             tvn = list(df["number"][df["word"]==i])[0]
          except:
-            tvn = "<2"
+            tvn = "2"
          
 
          the_word = getting_pure_word(df_tvp)
@@ -81,7 +103,10 @@ for i in list_of_words:
          tvp = list(df_tvp["number"][df_tvp["word"] == i])[0]
 
 
-         print(f"{the_word}  TVN: {tvn}   TVP: {tvp}")
+
+         cursor.execute(f"insert into keywords (keyword,tvn,tvp) values ('{the_word}',{tvn},{tvp})")
+         conn.commit()
+         #print(f"{the_word}  TVN: {tvn}   TVP: {tvp}")
       
 
       else:
@@ -90,25 +115,4 @@ for i in list_of_words:
       
 
 
-
-
-
-
-
-
-
-
-"""data = get()
-
-conn = psycopg2.connect(
-   database=data[2], user=data[0], password=data[1], host='127.0.0.1', port= '5432'
-)
-
-conn.autocommit = True
-
-
-cursor = conn.cursor()"""
-
-
-
-
+conn.close()
