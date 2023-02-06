@@ -6,7 +6,23 @@ from datetime import datetime
 from calendar import monthrange
 from django.shortcuts import redirect
 from .serializers import TvnSerializer
+import psycopg2
 import json
+from configparser import ConfigParser
+
+
+
+config = ConfigParser()
+config.read("/home/michal/Documents/Python/scraping/test/crawling/other/config.ini")
+config["database"]["password"]
+
+
+conn = psycopg2.connect(
+   database=config["database"]["database_n"], user=config["database"]["user"], password=config["database"]["password"], host='127.0.0.1', port= '5432'
+)
+
+conn.autocommit = True
+cursor = conn.cursor()
 
 
 
@@ -79,16 +95,20 @@ def api(response, keyword=None ):
     
     
 
-    #Without real key words for now - I want to do .js file first
     elif  keyword == "key_words":
 
         data = []
+        cursor.execute(f"select * from keywords;")
+        conn.commit()
+        result = cursor.fetchall()
 
-        for i in range(8):
+
+        #need to add examples of those keywords
+        for i in result:
             data.append({
-            "headline" : "testheadline",
-            "first_cell" : "TVN: 20",
-            "second_cell" : "TVP: 50"
+            "headline" : i[0],
+            "first_cell" : f"TVN: {i[1]}",
+            "second_cell" : f"TVP: {i[2]}",
             },)
         
         return HttpResponse(json.dumps(data, ensure_ascii=False))
@@ -103,4 +123,6 @@ def index2(response):
 
 def key_words(response):
     return render(response, "main/key_words.html")
+
+
 

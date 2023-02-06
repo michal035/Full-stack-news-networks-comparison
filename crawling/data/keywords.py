@@ -1,4 +1,4 @@
-from  getting_credentials import get
+from  crawling.website.thesite.main.getting_credentials import get
 import psycopg2
 import pandas as pd
 from datetime import datetime
