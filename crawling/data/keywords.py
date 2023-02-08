@@ -48,9 +48,13 @@ df_tvp[1] = df_tvp[1].str.lower()
 # This is the one that will actually get used 
 
 def keywords_search_v2(df):
+
     pd.options.display.max_colwidth = 100
     df_silimary_words = pd.DataFrame(columns= ["word", "number", "original_words"])
+
     unnecessary_words = get_list_of_unnecessary_words()
+    exceptions = pd.read_csv("crawling/data/exceptions_keywords.csv")
+
     list_of_political_parites = ["pis","psl","205"]
 
 
@@ -75,7 +79,17 @@ def keywords_search_v2(df):
                 
                 elif len(word) >= 4:
                     first_letters = word[:4]
-                    #here needs to be added filter for know exceptions like policja and polityka
+                    
+                    
+                    #filter for known exceptions like "policja" and "polityka"
+                    if first_letters in list(exceptions["old"]):
+                        index = list(exceptions.index[exceptions["old"]==first_letters])[0]
+                        if exceptions.at[index,"extra"] == "Y":
+                            first_letters = word[:5]
+                        else:
+                            first_letters = exceptions.at[index,"new"]
+                    
+
                     if first_letters in  list(df_silimary_words['word']):
                         index = list(df_silimary_words.index[df_silimary_words["word"] == first_letters])[0]
                         df_silimary_words.at[index,"number"] = int(df_silimary_words.iloc[index].number) + 1
