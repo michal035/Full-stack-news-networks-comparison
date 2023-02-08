@@ -116,7 +116,7 @@ def api(response, keyword=None ):
         pass
 
         
-        
+
 def index2(response):
 
     keywords = ["ukraina","tuska"]
@@ -147,5 +147,8 @@ def index2(response):
 def key_words(response):
     return render(response, "main/key_words.html")
 
+
+def contact(response):
+    return render(response, "main/contact.html")
 
 

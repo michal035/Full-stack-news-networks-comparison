@@ -8,7 +8,8 @@ urlpatterns = [
     path('archive/<keyword>/', views.archive),
     path('keywords/', views.key_words),
     path('api/', views.api),
-    path('api/<keyword>/', views.api)
+    path('api/<keyword>/', views.api),
+    path('contact/', views.contact)
  
 
 ]

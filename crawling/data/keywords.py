@@ -49,7 +49,7 @@ df_tvp[1] = df_tvp[1].str.lower()
 
 def keywords_search_v2(df):
     pd.options.display.max_colwidth = 100
-    df_silimary_words = pd.DataFrame(columns= ["word", "number", "original_word"])
+    df_silimary_words = pd.DataFrame(columns= ["word", "number", "original_words"])
     unnecessary_words = get_list_of_unnecessary_words()
     list_of_political_parites = ["pis","psl","205"]
 
@@ -69,9 +69,9 @@ def keywords_search_v2(df):
                     if first_letters in  list(df_silimary_words['word']):
                         index = list(df_silimary_words.index[df_silimary_words["word"] == first_letters])[0]
                         df_silimary_words.at[index,"number"] = int(df_silimary_words.iloc[index].number) + 1
-                        df_silimary_words.at[index,"original_word"] = f"{str(df_silimary_words.iloc[index].original_word)}, {word}"
+                        df_silimary_words.at[index,"original_words"] = f"{str(df_silimary_words.iloc[index].original_words)}, {word}"
                     else:
-                        df_silimary_words = pd.concat([df_silimary_words, pd.DataFrame.from_records([{ 'word': first_letters, 'number': 1 , "original_word" : word}])], ignore_index=True)
+                        df_silimary_words = pd.concat([df_silimary_words, pd.DataFrame.from_records([{ 'word': first_letters, 'number': 1 , "original_words" : word}])], ignore_index=True)
                 
                 elif len(word) >= 4:
                     first_letters = word[:4]
@@ -79,23 +79,23 @@ def keywords_search_v2(df):
                     if first_letters in  list(df_silimary_words['word']):
                         index = list(df_silimary_words.index[df_silimary_words["word"] == first_letters])[0]
                         df_silimary_words.at[index,"number"] = int(df_silimary_words.iloc[index].number) + 1
-                        df_silimary_words.at[index,"original_word"] = f"{str(df_silimary_words.iloc[index].original_word)}, {word}"
+                        df_silimary_words.at[index,"original_words"] = f"{str(df_silimary_words.iloc[index].original_words)}, {word}"
                     else:
-                        df_silimary_words = pd.concat([df_silimary_words, pd.DataFrame.from_records([{ 'word': first_letters, 'number': 1 , "original_word" : word}])], ignore_index=True)
+                        df_silimary_words = pd.concat([df_silimary_words, pd.DataFrame.from_records([{ 'word': first_letters, 'number': 1 , "original_words" : word}])], ignore_index=True)
                         
                 else:
                     first_letters = word
                     if first_letters in  list(df_silimary_words['word']):
                         index = list(df_silimary_words.index[df_silimary_words["word"] == first_letters])[0]
                         df_silimary_words.at[index,"number"] = int(df_silimary_words.iloc[index].number) + 1
-                        df_silimary_words.at[index,"original_word"] = f"{str(df_silimary_words.iloc[index].original_word)}, {word}"
+                        df_silimary_words.at[index,"original_words"] = f"{str(df_silimary_words.iloc[index].original_words)}, {word}"
                     else:
-                        df_silimary_words = pd.concat([df_silimary_words, pd.DataFrame.from_records([{ 'word': first_letters, 'number': 1 , "original_word" : word}])], ignore_index=True)
+                        df_silimary_words = pd.concat([df_silimary_words, pd.DataFrame.from_records([{ 'word': first_letters, 'number': 1 , "original_words" : word}])], ignore_index=True)
             
     return df_silimary_words
 
 
-#print(keywords_search_v2(df_tvn).sort_values(by=['number'],ascending=False).head(50))
+print(keywords_search_v2(df_tvp).sort_values(by=['number'],ascending=False).head(50))
 
 
 
