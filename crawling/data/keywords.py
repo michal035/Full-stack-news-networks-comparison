@@ -53,7 +53,9 @@ def keywords_search_v2(df):
     df_silimary_words = pd.DataFrame(columns= ["word", "number", "original_words"])
 
     unnecessary_words = get_list_of_unnecessary_words()
-    exceptions = pd.read_csv("crawling/data/exceptions_keywords.csv")
+    
+    # I really have no idea sometimes realtive path just works and somstimes not - it's VSC issue
+    exceptions = pd.read_csv("/home/michal/Documents/Python/scraping/test/crawling/data/exceptions_keywords.csv")
 
     list_of_political_parites = ["pis","psl","205"]
 
@@ -80,7 +82,7 @@ def keywords_search_v2(df):
                 elif len(word) >= 4:
                     first_letters = word[:4]
                     
-                    
+
                     #filter for known exceptions like "policja" and "polityka"
                     if first_letters in list(exceptions["old"]):
                         index = list(exceptions.index[exceptions["old"]==first_letters])[0]
@@ -109,7 +111,7 @@ def keywords_search_v2(df):
     return df_silimary_words
 
 
-print(keywords_search_v2(df_tvp).sort_values(by=['number'],ascending=False).head(50))
+#print(keywords_search_v2(df_tvp).sort_values(by=['number'],ascending=False).head(50))
 
 
 

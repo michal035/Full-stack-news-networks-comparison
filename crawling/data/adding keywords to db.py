@@ -1,4 +1,4 @@
-from  crawling.website.thesite.main.getting_credentials import get
+from getting_credentials import get
 import psycopg2
 import pandas as pd 
 import keywords
@@ -22,7 +22,6 @@ cursor.execute(f"truncate keywords")
 conn.commit()
 
 
-
 df_tvn = pd.read_csv("crawling/data/tvn_key_words.csv")
 df_tvp = pd.read_csv("crawling/data/tvp_key_words.csv")
 
@@ -37,7 +36,7 @@ full_df_of_key_words = get_full_data_frames()
 #getting pure keyword
 def getting_pure_word(df):
 
-   the_words_o = ((df["original_word"][df["word"] == i].to_string(index=False)).replace(" ","")).split(",")  
+   the_words_o = ((df["original_words"][df["word"] == i].to_string(index=False)).replace(" ","")).split(",")  
    the_words_o.pop()
 
    the_words = [y for y in the_words_o if y[-1] == "a"]
@@ -51,7 +50,31 @@ def getting_pure_word(df):
 
    return the_word
 
+
+#examples of used words - I do not know if i will use it but yeah      
+def examples(df):
+
+   if len(i) > 3:
+      the_words_o = ((df["original_words"][df["word"] == i].to_string(index=False)).replace(" ","")).split(",")  
+      the_words_o.pop()
+
+      #the_words = [i for i in the_words_o if i not in the_words]
       
+      the_words =[]
+      for j in the_words_o:
+         if j not in the_words:
+            the_words.append(j)
+
+      the_words = the_words[0:4]
+      the_words = ",".join(l for l in the_words)
+      
+      
+      return the_words
+   
+   else:
+      return None
+
+
 
 for i in list_of_words:
    if i in df_tvp["word"].values and i in df_tvn["word"].values:
@@ -60,9 +83,10 @@ for i in list_of_words:
       tvp = int(list(df_tvp["number"][df_tvp["word"] == i])[0])
       
       the_word = getting_pure_word(df_tvp)
+      rest_of_words = examples(df_tvp)
 
       
-      cursor.execute(f"insert into keywords values ('{the_word}',{tvn},{tvp})")
+      cursor.execute(f"insert into keywords values ('{the_word}',{tvn},{tvp},'{rest_of_words}')")
       conn.commit()
 
       #print(f"{the_word}  TVN: {tvn}   TVP: {tvp}")
@@ -79,11 +103,11 @@ for i in list_of_words:
          
 
          the_word = getting_pure_word(df_tvn)
+         rest_of_words = examples(df_tvn)
 
          tvn = list(df_tvn["number"][df_tvn["word"] == i])[0]
 
-
-         cursor.execute(f"insert into keywords (keyword,tvn,tvp) values ('{the_word}',{tvn},{tvp})")
+         cursor.execute(f"insert into keywords values ('{the_word}',{tvn},{tvp},'{rest_of_words}')")
          conn.commit()
          #print(f"{the_word}  TVN: {tvn}   TVP: {tvp}")
 
@@ -99,12 +123,13 @@ for i in list_of_words:
          
 
          the_word = getting_pure_word(df_tvp)
+         rest_of_words = examples(df_tvp)
 
          tvp = list(df_tvp["number"][df_tvp["word"] == i])[0]
 
 
 
-         cursor.execute(f"insert into keywords (keyword,tvn,tvp) values ('{the_word}',{tvn},{tvp})")
+         cursor.execute(f"insert into keywords values ('{the_word}',{tvn},{tvp},'{rest_of_words}')")
          conn.commit()
          #print(f"{the_word}  TVN: {tvn}   TVP: {tvp}")
       

@@ -122,13 +122,18 @@ def index2(response):
     keywords = ["ukraina","tuska"]
 
     def get_data(the_keyword):
-        cursor.execute(f"select tvn from keywords where keyword = '{the_keyword}'")
-        tvn = cursor.fetchone()[0]
+        cursor.execute(f"select tvn,tvp,words from keywords where keyword = '{the_keyword}'")
+        
+        whole = cursor.fetchone()
+        tvn = whole[0]
+        tvp = whole[1]
+        words =  whole[2]
 
-        cursor.execute(f"select tvp from keywords where keyword = '{the_keyword}'")
-        tvp = cursor.fetchone()[0]
-
-        keyword_des = f"keyword {the_keyword} was used by TVN {tvn} so far this year and {tvp} by TVP"
+        
+        if words != None:
+            keyword_des = f"keyword {the_keyword} was used by TVN {tvn} so far this year and {tvp} by TVP. Those are some transformations of that words: {words}."
+        else:
+            keyword_des = f"keyword {the_keyword} was used by TVN {tvn} so far this year and {tvp} by TVP"
         
         return keyword_des
         
