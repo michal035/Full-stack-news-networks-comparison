@@ -115,10 +115,33 @@ def api(response, keyword=None ):
     else:
         pass
 
-
+        
+        
 def index2(response):
 
-    return render(response, "main/index2.html")
+    keywords = ["ukraina","tuska"]
+
+    def get_data(the_keyword):
+        cursor.execute(f"select tvn from keywords where keyword = '{the_keyword}'")
+        tvn = cursor.fetchone()[0]
+
+        cursor.execute(f"select tvp from keywords where keyword = '{the_keyword}'")
+        tvp = cursor.fetchone()[0]
+
+        keyword_des = f"keyword {the_keyword} was used by TVN {tvn} so far this year and {tvp} by TVP"
+        
+        return keyword_des
+        
+
+    
+    contex = {"first_keyword" : keywords[0],
+        "first_keyword_des" : get_data(keywords[0]),
+        "second_keyword" : keywords[1],
+        "second_keyword_des" : get_data(keywords[1])
+        }  
+    
+
+    return render(response, "main/index2.html", contex)
 
 
 def key_words(response):
