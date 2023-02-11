@@ -73,11 +73,13 @@ def api(response, keyword=None ):
             p = len(tvP)
             n = len(tvN)
 
-        
-            for i in range(p):
-                list_of_objs[0].append(tvP[i].headline)
-            for i in range(n):
-                list_of_objs[1].append(tvN[i].headline)
+
+            for i in tvP:
+                list_of_objs[0].append(i.headline)
+
+            for i in tvN:
+                list_of_objs[1].append(i.headline)
+
 
 
             if month == 1:

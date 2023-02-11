@@ -41,7 +41,7 @@ def tvp():
         })"""
     df2 = pd.DataFrame()
 
-    for i in range(len(df)):
+    for i, value in enumerate(df):
         
         # no idea why there is == like it should be != as far as i am concern, its late in the night tho don't judge me - quite sure it was working just fine before with !=
         if str(df.iloc[i,1]).find(".") == -1:

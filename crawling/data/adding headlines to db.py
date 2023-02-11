@@ -42,7 +42,7 @@ def tvp():
 
     df = pd.read_csv("/home/michal/Documents/Python/scraping/test/crawling/data/headlines6.csv", sep=";")
 
-    for i in range(len(df)):
+    for i, value in enumerate(df):
         
         g = str(df.iloc[i][1]).replace("'","")
         cursor.execute(f"select * from main_tvp where headline = '{g}' and date = '{u}'")
