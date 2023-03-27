@@ -14,7 +14,7 @@ Here is the pipeline - that's basically what's happening in .sh file
 
 ```
 
-Here is quick demo of one of the versions hosted on my raspberry pi in my local network 
+Just quick demo to give you an idea what this is all about - this is older version of project
 
 https://user-images.githubusercontent.com/84066345/223776951-6ffce02a-1373-4b28-90de-7761516bd086.mp4
 
