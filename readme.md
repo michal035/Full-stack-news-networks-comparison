@@ -14,7 +14,7 @@ This project contains the following tools:
 - REST API - all of archived data can be fetched (Django)
 - Frontend (kind of) - work in progress (HTML/CSS/JS/bootstrap)
 
-Just a quick demo - this is just an overview of all the things mentioned above - not a production version 
+Just a quick demo - this is just an OVERVIEW of all the things mentioned above - NOT A PRODUCTION VERSION
 
 https://user-images.githubusercontent.com/84066345/223776951-6ffce02a-1373-4b28-90de-7761516bd086.mp4
 
