@@ -50,7 +50,7 @@ df_tvp[1] = df_tvp[1].str.lower()
 def keywords_search_v2(df):
 
     pd.options.display.max_colwidth = 100
-    df_silimary_words = pd.DataFrame(columns= ["word", "number", "original_words"])
+    df_silimary_words = pd.DataFrame(columns= ["number", "word", "original_words"])
 
     unnecessary_words = get_list_of_unnecessary_words()
     
@@ -153,9 +153,8 @@ def get_full_data_frames():
 
 
 if __name__ != "__main__":
-    
-    df_tvn = keywords_search_v2(df_tvn).sort_values(by=['number'],ascending=False).head(100)
-    df_tvp = keywords_search_v2(df_tvp).sort_values(by=['number'],ascending=False).head(100)
+    df_tvn = keywords_search_v2(df_tvn).sort_values(by=['number'],ascending=False).head(130)
+    df_tvp = keywords_search_v2(df_tvp).sort_values(by=['number'],ascending=False).head(130)
 
     df_tvn.to_csv("/home/michal/Documents/Python/scraping/test/crawling/data/tvn_key_words.csv")
     df_tvp.to_csv("/home/michal/Documents/Python/scraping/test/crawling/data/tvp_key_words.csv")
