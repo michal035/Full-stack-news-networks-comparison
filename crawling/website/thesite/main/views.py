@@ -121,10 +121,10 @@ def api(response, keyword=None ):
 
 def index2(response):
 
-    keywords = ["ukraina","tuska"]
+    keywords = ["ukrainy","tuska"]
 
     def get_data(the_keyword):
-        cursor.execute(f"select tvn,tvp,words from keywords where keyword = '{the_keyword}'")
+        cursor.execute(f"select tvn,tvp,rest from keywords where word = '{the_keyword}'")
         
         whole = cursor.fetchone()
         tvn = whole[0]
