@@ -16,7 +16,7 @@ config = ConfigParser()
 config.read("/home/michal/Documents/Python/scraping/test/crawling/other/config.ini")
 config["database"]["password"]
 
-
+#Yeah I know ...
 conn = psycopg2.connect(
    database=config["database"]["database_n"], user=config["database"]["user"], password=config["database"]["password"], host='127.0.0.1', port= '5432'
 )

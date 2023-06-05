@@ -14,6 +14,25 @@
         
         {% load static %}
             <link href="{% static 'styles.css' %}" rel="stylesheet" />
+
+
+
+        <!-- Needs to be moved to .css file and renamed-->
+        <style>
+
+            .sighh:hover {
+                background-color: black;
+                color: white
+            }
+
+            .sigh:hover {
+            background-color: #ecebe8;
+            color: #000000;
+            }
+
+        </style>
+
+
     </head>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
@@ -40,7 +59,7 @@
                                 <h1 class="display-5 fw-bolder text-white mb-2">Comparison between two very different news networks</h1>
                                 <p class="lead fw-normal text-white-50 mb-4">Nowadays its hard to tell, what is factual, biased and what not. We provide analitys of key words used in headline of those two news agencies and much more </p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                                    <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#examples">Show me</a>
+                                    <a class="btn bg-white btn-primary btn-outline-light btn-lg px-4 me-sm-3 sighh" style="color:black" href="#examples">Show me</a>
                                     <a class="btn btn-outline-light btn-lg px-4" href="#features">Learn More</a>
                                 </div>
                             </div>
@@ -57,22 +76,22 @@
                         <div class="col-lg-8">
                             <div class="row gx-5 row-cols-1 row-cols-md-2">
                                 <div class="col mb-5 h-100">
-                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
+                                    <div class="feature bg-primary bg-gradient bg-black text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
                                     <h2 class="h5"> <a href="/key20words" style="text-decoration: none; color: black;"> Key words</a></h2>
                                     <p class="mb-0">Comparison and data analytics how many certain words were used by that agency - political parties, social event, global events</p>
                                 </div>
                                 <div class="col mb-5 h-100">
-                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building"></i></div>
+                                    <div class="feature bg-primary bg-gradient bg-black text-white rounded-3 mb-3"><i class="bi bi-building"></i></div>
                                     <h2 class="h5"> <a href="/archive/1" style="text-decoration: none; color: black;"> headlines archive</a></h2>
                                     <p class="mb-0">We provided archive of news headlines - certain articles do not age well and get deleted - nothing disappears in the web</p>
                                 </div>
                                 <div class="col mb-5 mb-md-0 h-100">
-                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
+                                    <div class="feature bg-primary bg-gradient text-white bg-black rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
                                     <h2 class="h5">Most ridiculous headlines</h2>
                                     <p class="mb-0">Incoming - ranking of headlines - users will be able to vote and choose the headline of the year etc.</p>
                                 </div>
                                 <div class="col h-100">
-                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
+                                    <div class="feature bg-primary bg-gradient text-white bg-black rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
                                     <h2 class="h5">Do you have idea how could we improve our service?</h2>
                                     <p class="mb-0">Please let us know!</p>
                                 </div>
@@ -99,7 +118,7 @@
                             <div class="card h-100 shadow border-0">
                                 <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
                                 <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">Key word</div>
+                                    <div class="badge bg-primary bg-black bg-gradient rounded-pill mb-2">Key word</div>
                                     <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">{{first_keyword}}</h5></a>
                                     <p class="card-text mb-0">{{first_keyword_des}}</p>
                                 </div>
@@ -111,7 +130,7 @@
                             <div class="card h-100 shadow border-0">
                                 <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />
                                 <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">contovelsial headline</div>
+                                    <div class="badge bg-primary bg-black bg-gradient rounded-pill mb-2">contovelsial headline</div>
                                     <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">The last blog post title is a little bit longer than the others</h5></a>
                                     <p class="card-text mb-0">Some more quick example text to build on the card title and make up the bulk of the card's content.</p>
                                 </div>
@@ -122,7 +141,7 @@
                             <div class="card h-100 shadow border-0">
                                 <img class="card-img-top" src="https://dummyimage.com/600x350/6c757d/343a40" alt="..." />
                                 <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2"> <a style="color: white; text-decoration:none;" href="#features">Key word</a> </div>
+                                    <div class="badge bg-primary bg-black bg-gradient rounded-pill mb-2"> <a style="color: white; text-decoration:none;" href="#features">Key word</a> </div>
                             
                                     <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">{{second_keyword}}</h5></a>
                                     <p class="card-text mb-0">{{second_keyword_des}}</p>
@@ -134,58 +153,25 @@
 
                 </div>
             </section>
-            <section class="bg-light py-5">
-                <div class="container px-5 my-5">
-                    <div class="text-center mb-5">
-                        <h1 class="fw-bolder">Explore more</h1>
-                        <p class="lead fw-normal text-muted mb-0">woowoow</p>
-                    </div>
-                    <div class="row gx-5 justify-content-center">
-                        <!-- Pricing card free-->
-                        <div class="col-lg-6 col-xl-4">
-                            <div class="card mb-5 mb-xl-0">
-                                <div class="card-body p-5">
-                                    <div class="mb-3">
-                                        <span class="display-4 fw-bold">Key words</span>
-                                    </div>
-                                    <br>
-                                    <div class="d-grid"><a class="btn btn-outline-primary" href="/keywords">Take me down the rabithole</a></div>
-                                </div>
-                            </div>
-                        </div>
+           <section>
 
-                        <div class="col-lg-6 col-xl-4">
-                            <div class="card mb-5 mb-xl-0">
-                                <div class="card-body p-5">
-                                    <div class="mb-3">
-                                        <span class="display-4 fw-bold">Headlines archive</span>
-                                        
-                                    </div>
-                                    <br>
-                                    <p>It's not much but its honest work</p>
-                                    <div class="d-grid"><a class="btn btn-outline-primary" href="/archive/1">Sure</a></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-xl-4">
-                            <div class="card mb-5 mb-xl-0">
-                                <div class="card-body p-5">
-                                    <div class="mb-3">
-                                        <span class="display-4 fw-bold">Get in touch</span>
-                                    </div>
-                                    <br>
-                                    <p>Got feedback? Offer? Let us know!</p>
-                                    <div class="d-grid"><a class="btn btn-outline-primary" href="#!">Here!</a></div>
-                                </div>
-                            </div>
-                        </div>
-                       
-                            
-                        
-                    </div>
+            <br>
+            <center><h2 class="fw-bolder">Explore each of our features individually. </h2></center>
+            <br>
+            <center><p class="lead fw-normal text-muted mb-5">Those are some key word trends that we have noticed</p></center>
+            
+            <center>
+                <div>
+                    <a class="btn btn-dark btn-lg px-4 sigh"  style="margin: 5%; margin-top: 0%; width: 15%; " href="/archive/1">Archive</a>
+                    <a class="btn btn-dark btn-lg px-4 sigh" style="margin: 5%; margin-top: 0%; width: 15%; transition: background-color 0.3s ease, color 0.3s ease;" href="/keywords/">Keywords</a>
                 </div>
-            </section>
+            </center>
+            
+            <br>
+            <br>
+            <br>
+
+           </section>
         </main>
         <!-- Footer-->
         <footer class="bg-dark py-4 mt-auto">
