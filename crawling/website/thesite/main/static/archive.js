@@ -66,7 +66,7 @@ function show(data) {
   
     
     document.getElementById("in").innerHTML = tab;
-    document.getElementById("theplace").innerHTML = '<center><div style="width: 40%;"><button id="thebtn" name="thebtN" value="nampage" class="btn btn-outline-primary" style="width: 100%;" >Load another month!</button></div></center>'
+    document.getElementById("theplace").innerHTML = '<center><div style="width: 40%;"><button id="thebtn" name="thebtN" value="nampage" class="btn btn-outline-dark bg-white sigh" style="width: 100%; color: black " >Load another month!</button></div></center>'
 }
 
 
