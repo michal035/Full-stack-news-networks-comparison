@@ -16,7 +16,10 @@ This project contains the following tools:
 
 Just a quick demo - this is just an OVERVIEW of all the things mentioned above - NOT A PRODUCTION VERSION
 
-https://user-images.githubusercontent.com/84066345/223776951-6ffce02a-1373-4b28-90de-7761516bd086.mp4
+https://github.com/michal035/Full-stack-news-networks-comparison/assets/84066345/359c6364-6c52-49bc-b2f0-c666e15786d6
+
+
+
 
 
 I am hosting the data collection part on my raspberry pi - I am also planning on hosting this on OCI - this is why some parts are left out for security purposes  
